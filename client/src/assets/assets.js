@@ -77,7 +77,38 @@ export const userDummyData = [
         "fullName": "Richard Smith",
         "profilePic": profile_richard,
         "bio": "Hi Everyone, I am Using QuickChat",
+    },
+ {
+        "_id": "680f516cf10f3cd28382ed11",
+        "email": "test5@greatstack.dev",
+        "fullName": "Richard Smith",
+        "profilePic": profile_richard,
+        "bio": "Hi Everyone, I am Using QuickChat",
+    },
+    {
+        "_id": "680f516cf10f3cd28382ed11",
+        "email": "test5@greatstack.dev",
+        "fullName": "Richard Smith",
+        "profilePic": profile_richard,
+        "bio": "Hi Everyone, I am Using QuickChat",
+    },
+    {
+        "_id": "680f516cf10f3cd28382ed11",
+        "email": "test5@greatstack.dev",
+        "fullName": "Richard Smith",
+        "profilePic": profile_richard,
+        "bio": "Hi Everyone, I am Using QuickChat",
+    },
+    {
+        "_id": "680f516cf10f3cd28382ed11",
+        "email": "test5@greatstack.dev",
+        "fullName": "Richard Smith",
+        "profilePic": profile_richard,
+        "bio": "Hi Everyone, I am Using QuickChat",
     }
+
+
+
 ]
 
 export const messagesDummyData = [
