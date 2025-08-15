@@ -7,9 +7,9 @@ const Sidebar = ({selectedUser,setSelectedUser}) => {
   const navigate = useNavigate();
 
   return (
-  <div className = {`bg-[#8185B2]/10 h-full pb-5 overflow-y-scroll text-white ${selectedUser ? 'max-md:hidden' : ''}`}>
+  <div className = {`bg-[#8185B2]/10 h-full pb-5 overflow-y-scroll  text-white ${selectedUser ? 'max-md:hidden' : ''}`}>
 
-     <div className =" -m-5 pb-5 sticky top-0 z-20 bg-gray-900 pl-10 pr-10 pt-2">    
+     <div className =" pb-5 sticky top-0 z-20 bg-gray-900 pl-10 pr-10 pt-2">    
 
         <div className = "flex justify-between items-center">
               <img src={assets.logo} alt="Logo" className ="max-w-40" />
