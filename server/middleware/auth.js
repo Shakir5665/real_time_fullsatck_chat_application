@@ -1,0 +1,28 @@
+import User from "../models/User.js";
+import jwt from "jasonwebtoken";
+// middleware to protect routes
+export const protectRoutes = async (req,res,next) => {
+
+    try {
+        const token = req.headers.token;
+
+        const decoded = jwt.verify(token , process.env.JWT_SECRET)
+
+        const user = await User.findById(decoded.userId).select("-password");
+
+        if (!user){
+            return res.jason({
+                success:false , message:'User not found..'
+            });
+        }
+
+        req.user = user;
+
+        next();
+    } catch (error) {
+          console.log(error.message);
+          return res.jason({
+                success:false , message:error.message
+            });
+    }
+}
