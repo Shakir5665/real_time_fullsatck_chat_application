@@ -1,5 +1,9 @@
+
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+
+
+
 // middleware to protect routes
 export const protectRoutes = async (req,res,next) => {
 
@@ -19,6 +23,7 @@ export const protectRoutes = async (req,res,next) => {
         req.user = user;
 
         next();
+        
     } catch (error) {
           console.log(error.message);
           return res.jason({
