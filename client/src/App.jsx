@@ -1,17 +1,24 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import Loginpage from './pages/Loginpage'
 import ProfilePage from './pages/ProfilePage'
+import {Toaster} from "react-hot-toast"
+import { AuthContext } from '../context/authContext'
 
 const App = () => {
+
+  const {authUser} = useContext(AuthContext);
+
+
   return (
     <div className = "bg-[url('./assets/bgImage.svg')] bg-contain">
+      <Toaster />
       <Routes>
 
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Loginpage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/" element={authUser? <HomePage/> : <Navigate to = "/login"/>} />
+        <Route path="/login" element={!authUser? <Loginpage/> :<Navigate to = "/"/> } />
+        <Route path="/profile" element={authUser? <ProfilePage/> : <Navigate to = "/login"/>} />
 
       </Routes>
 
