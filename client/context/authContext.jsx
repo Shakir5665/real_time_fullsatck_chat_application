@@ -13,7 +13,7 @@ export const AuthProvider = ({children}) => {
 
     const [token , setTocken] = useState(localStorage.getItem("token"));
     const [authUser , setAuthUser]  =useState(null);
-    const [onlineUser , setOnlineUser]  =useState([]);
+    const [onlineUsers , setOnlineUsers]  =useState([]);
     const [socket , setSocket]  =useState(null);
 
 
@@ -37,7 +37,7 @@ export const AuthProvider = ({children}) => {
             const {data} = await axios.post(`/api/auth/${state}`, credentials);
             if(data.success){
                 setAuthUser(data.userData);
-                connectSocket(data.userdata);
+                connectSocket(data.userData);
                 axios.defaults.headers.common["token"] = data.token;
                 setTocken(data.token);
                 localStorage.setItem("token",data.token);
@@ -57,7 +57,7 @@ export const AuthProvider = ({children}) => {
        localStorage.removeItem("token");
        setTocken(null);
        setAuthUser(null);
-       setOnlineUser([]);
+       setOnlineUsers([]);
        axios.defaults.headers.common["token"] = null;
        toast.success("Logged out Successfully");
        socket.disconnect(); 
@@ -82,7 +82,7 @@ export const AuthProvider = ({children}) => {
 
     // Connect socket function to handle socket connection and online user updates
     const connectSocket = (userData) => {
-        if(!userData || socket?.connected)
+        if(!userData || socket?.connected === true)
             return;
 
         const newSocket = io(backendUrl, {
@@ -95,7 +95,7 @@ export const AuthProvider = ({children}) => {
         setSocket(newSocket);
 
         newSocket.on("getOnlineUsers" , (userIds) => {
-            setOnlineUser(userIds);
+            setOnlineUsers(userIds);
         });
         
     }
@@ -112,7 +112,7 @@ export const AuthProvider = ({children}) => {
     const value = {
         axios ,
         authUser ,
-        onlineUser ,
+        onlineUsers ,
         socket ,
         login ,
         logout ,
