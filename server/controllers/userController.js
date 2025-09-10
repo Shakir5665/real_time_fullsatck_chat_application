@@ -29,7 +29,7 @@ export const signup = async (req,res) =>{
 
         const token = generateToken(newUser._id);
 
-        res.jason({
+        res.json({
             success:true , userData:newUser , token , message:"Account created successfully..."
         });
      
@@ -37,7 +37,7 @@ export const signup = async (req,res) =>{
 
         console.log(error.message);
 
-        res.jason({
+        res.json({
             success:false , message:error.message
         });
     }
@@ -47,22 +47,21 @@ export const signup = async (req,res) =>{
 
 //Controller to login user
 
-export const login = async (eq,res) => {
+export const login = async (req,res) => {
 
     try {
         
-         const {email , password} = req.body;
+         const {email , password} = req.body;         
          const userData = await User.findOne({email});
-
          const isPasswordCorrect = await bcrypt.compare(password, userData.password);
 
          if (!isPasswordCorrect){
-            return res.json({success:'false', message:'Invalid credintials'})
+            return res.json({success:false, message:'Invalid credentials'})
          }
 
         const token = generateToken(userData._id);
 
-        res.jason({
+        res.json({
             success:true , userData, token , message:"Successful Login.."
         });
 
@@ -70,7 +69,7 @@ export const login = async (eq,res) => {
         
           console.log(error.message);
 
-        res.jason({
+        res.json({
             success:false , message:error.message
         });
 
@@ -83,7 +82,7 @@ export const login = async (eq,res) => {
 // Controller to check if User Authenticated
 
 export const checkAuth = (req,res) => {
-    res.jason({
+    res.json({
         success:true , user:req.user
     });
 }
@@ -110,7 +109,7 @@ export const updateProfile = async (req,res) => {
             updatedUser = await User.findByIdAndUpdate(userId,{fullName , bio , profilePic:upload.secure_url}, {new:true});
         }
 
-        res.jason({
+        res.json({
             success:true ,
             user: updatedUser
         });
@@ -118,10 +117,10 @@ export const updateProfile = async (req,res) => {
     } catch (error) {
         console.log(error.message);
 
-        res.jason({
+        res.json({
             success:false,
             message:error.message
         });
     }
 
-}
+} 

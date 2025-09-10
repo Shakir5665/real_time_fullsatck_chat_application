@@ -1,21 +1,40 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import assets from '../assets/assets'
 import {useNavigate} from 'react-router-dom'
+import { AuthContext } from '../../context/authContext'
 
 const ProfilePage = () => {
 
+  const {authUser , updateProfile} = useContext(AuthContext);
 
-  const [selectedImg,setSelectedImg] = useState(null)
-  const [name,setName] = useState('Mohamed Shakir')
-  const [bio,setBio] = useState('Hi there, I am using Quick Chat...')
+  const [selectedImg,setSelectedImg] = useState('')
+  const [name,setName] = useState(authUser.fullName)
+  const [bio,setBio] = useState(authUser.bio)
 
   const navigate = useNavigate();
-
+  
+  
 
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    navigate('/');
+  //  To connect with backend
+    if(!selectedImg){
+      await updateProfile({fullName:name , bio});
+      navigate('/');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedImg);
+    reader.onload = async () => {
+       const base64Image = reader.result;
+       await updateProfile({profilePic:base64Image , fullName: name , bio});
+       navigate('/');
+       return;
+
+    }
+  
 
   }
 
@@ -27,9 +46,9 @@ const ProfilePage = () => {
             <form onSubmit={handleSubmit} className='flex flex-col gap-5 p-10 flex-1'>
                <h3 className='text-lg'>Profile Details</h3>
                <label htmlFor="avatar" className='flex items-center gap-3 cursor-pointer'>
-                  <input onChange={(e) => setSelectedImg(e.target.files[0])} type="file" id='avatar' accept='.png .jpg .jpeg' hidden />
-                  <img src={selectedImg ? URL.createObjectURL(selectedImg) : assets.avatar_icon}
-                   className= {`w-12 h-12 ${selectedImg && 'rounded-full'}`} />
+                  <input onChange={(e) => setSelectedImg(e.target.files[0])} type="file" id='avatar' hidden />
+                  <img src={selectedImg ? URL.createObjectURL(selectedImg) : authUser?.profilePic || assets.avatar_icon}
+                   className= "w-12 h-12 rounded-full" />
                    Upload Profile Image
               </label> 
               <input onChange={(e) => setName(e.target.value)} value={name}
@@ -40,7 +59,8 @@ const ProfilePage = () => {
               
               <button type='submit' className='bg-gradient-to-r from-purple-400 to-violet-600 text-white p-2 rounded-full text-lg cursor-pointer'>Save</button>
             </form>
-            <img src={assets.logo_icon} className='max-w-44 aspect-square rounded-full mx-10 max-sm:mt-10'/>
+            {/*edited <img> with authUser for backend*/}
+            <img src={selectedImg ? URL.createObjectURL(selectedImg) : authUser?.profilePic || assets.logo_icon} className={`max-w-44 aspect-square rounded-full mx-10 max-sm:mt-10  ${selectedImg && 'rounded-full'}`}/>
             <img src='' />
         </div>
     </div>
@@ -48,3 +68,5 @@ const ProfilePage = () => {
 }
 
 export default ProfilePage
+
+//   src={authUser?.profilePic ||assets.logo_icon}

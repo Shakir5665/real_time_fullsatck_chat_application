@@ -13,7 +13,7 @@ import {Server} from "socket.io";
 const app = express();
 const server = http.createServer(app);
 
-
+ 
 // Initialize socket.io  Server
 export const io = new Server(server , {
     cors:{origin: "*" }
@@ -44,7 +44,7 @@ io.on("connection" , (socket) => {
 
 
 // Middleware setup
-app.use(express.json({limit: "4mb"}));
+app.use(express.json({limit: "4mb"})); 
 app.use(cors());
 
 
