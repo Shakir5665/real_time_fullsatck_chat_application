@@ -1,4 +1,4 @@
-import jwt from "jasonwebtoken";
+import jwt from "jsonwebtoken";
 
 // function to generate a token for User
 
