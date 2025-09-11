@@ -62,7 +62,7 @@ const ChatContainer = () => {
        
       {/* ---------------------------- Header -------------------------------------------*/}
       <div className='flex items-center gap-3 py-3 mx-4 border-b border-stone-500'>
-          <img src={selectedUser.profilePic || assets.avatar_icon} alt="profile" className='w-8 rounded-full' />
+          <img src={selectedUser.profilePic || assets.avatar_icon} alt="profile" className='w-8 rounded-full h-7' />
           <p  className = "flex flex-1 text-lg text-white items-center gap-2">
             {selectedUser.fullName}
             {onlineUsers.includes(selectedUser._id) && <span className='w-2 h-2 rounded-full bg-green-500'></span>}
