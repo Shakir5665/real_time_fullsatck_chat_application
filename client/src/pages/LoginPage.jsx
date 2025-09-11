@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import assets from '../assets/assets'
 import { AuthContext } from '../../context/AuthContext';
 
-const Loginpage = () => {
+const LoginPage = () => {
 
 
 const [currentState,setCurrentState] = useState('Sign up');
@@ -102,4 +102,4 @@ const onSubmitHandler = (event) => {
 
 
 
-export default Loginpage
+export default LoginPage
