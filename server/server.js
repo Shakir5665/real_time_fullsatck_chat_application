@@ -17,7 +17,19 @@ const server = http.createServer(app);
 // Initialize socket.io  Server
 export const io = new Server(server , {
     cors:{
-        origin: process.env.CLIENT_URL || "http://localhost:5173",
+        origin: function(origin, callback) {
+            const allowedOrigins = [
+                process.env.CLIENT_URL || "http://localhost:5173",
+                "http://localhost:5173",
+                "http://localhost:3000"
+            ];
+            
+            if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+                callback(null, true);
+            } else {
+                callback(null, true); // Allow for development
+            }
+        },
         credentials: true,
         methods: ["GET", "POST"]
     }
@@ -49,12 +61,33 @@ io.on("connection" , (socket) => {
 
 // Middleware setup
 app.use(express.json({limit: "4mb"})); 
+
+// CORS Configuration - Allow requests from frontend
+const allowedOrigins = [
+  process.env.CLIENT_URL || "http://localhost:5173",
+  "http://localhost:5173",
+  "http://localhost:3000"
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === "development") {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS policy violation"));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "token"]
+  allowedHeaders: ["Content-Type", "Authorization", "token"],
+  optionsSuccessStatus: 200
 }));
+
+// Explicit preflight handler
+app.options("*", cors());
 
 
 // Route Setup
