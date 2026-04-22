@@ -323,17 +323,10 @@ Contributions are welcome! Please follow these steps:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the ISC License - see the LICENSE file for details.
 
 ## 👤 Author
 
-Your Name - [GitHub](https://github.com/yourusername)
-
-## 📞 Support
-
-For support, email support@example.com or open an issue in the repository.
+Your Name - [GitHub](https://github.com/Shakir5665)
 
 ## 🗺️ Roadmap
 
@@ -348,14 +341,5 @@ For support, email support@example.com or open an issue in the repository.
 - [ ] Typing indicators
 - [ ] Message forwarding
 
-## 🙏 Acknowledgments
-
-- React and Vite communities
-- Socket.io documentation
-- Tailwind CSS framework
-- Cloudinary for image hosting
-- MongoDB for database
-
----
 
 **Last Updated**: April 2026
