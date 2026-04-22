@@ -326,7 +326,7 @@ Contributions are welcome! Please follow these steps:
 
 ## 👤 Author
 
-Your Name - [GitHub](https://github.com/Shakir5665)
+Mohamed Shakir - [GitHub](https://github.com/Shakir5665)
 
 ## 🗺️ Roadmap
 
