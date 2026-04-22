@@ -86,10 +86,6 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-// Explicit preflight handler
-app.options("*", cors());
-
-
 // Route Setup
 app.use("/api/status" , (req,res) =>res.send("Server is Live.."));
 app.use("/api/auth" ,userRouter);
