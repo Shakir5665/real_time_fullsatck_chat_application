@@ -2,7 +2,6 @@
 
 <div align="center">
 
-![License](https://img.shields.io/badge/license-ISC-blue.svg)
 ![Node](https://img.shields.io/badge/Node.js-%3E%3D18.0.0-green)
 ![React](https://img.shields.io/badge/React-%3E%3D19.0.0-61dafb)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%3E%3D5.0-green)
