@@ -7,8 +7,6 @@
 ![React](https://img.shields.io/badge/React-%3E%3D19.0.0-61dafb)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%3E%3D5.0-green)
 ![Socket.io](https://img.shields.io/badge/Socket.io-4.8-black)
-![Status](https://img.shields.io/badge/Status-Active-success)
-![Demo](https://real-time-fullsatck-chat-applicatio.vercel.app/)
 
 A modern, feature-rich real-time chat application built with the **MERN stack** (MongoDB, Express, React, Node.js) featuring WebSocket-powered instant messaging, user authentication, image sharing, and real-time online status tracking.
 
