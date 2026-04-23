@@ -9,9 +9,11 @@
   },
   "scripts": {
     "preinstall": "npm cache clean --force",
-    "postinstall": "npm rebuild iconv-lite",
+    "clean": "rm -rf node_modules package-lock.json",
+    "rebuild": "npm install --no-package-lock",
     "server": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "npm list mongodb && npm list mongoose"
   },
   "keywords": [],
   "author": "",
@@ -23,14 +25,19 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.18.1",
+    "mongodb": "6.5.0",
+    "mongoose": "8.3.3",
     "nodemon": "^3.1.10",
     "socket.io": "^4.8.1"
   },
   "overrides": {
-    "iconv-lite": "0.6.3"
+    "iconv-lite": "0.6.3",
+    "mongodb": "6.5.0",
+    "mongoose": "8.3.3"
   },
   "resolutions": {
-    "iconv-lite": "0.6.3"
+    "iconv-lite": "0.6.3",
+    "mongodb": "6.5.0",
+    "mongoose": "8.3.3"
   }
 }
