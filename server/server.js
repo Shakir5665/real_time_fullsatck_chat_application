@@ -88,6 +88,7 @@ app.use(cors({
 
 // Route Setup
 app.use("/api/status" , (req,res) =>res.send("Server is Live.."));
+app.get("/health", (req, res) => res.status(200).json({ status: "OK" })); // GitHub Actions keep-alive endpoint
 app.use("/api/auth" ,userRouter);
 app.use("/api/messages", messageRouter);   
 
@@ -98,15 +99,6 @@ if(process.env.NODE_ENV !== "production"){
     const PORT = process.env.PORT || 5000;
     server.listen(PORT , () => console.log("Server is Running on PORT : "+ PORT));
 }
-
-// Simple health check endpoint - no database queries
-app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'ok', 
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime()
-  });
-});
 
 
 

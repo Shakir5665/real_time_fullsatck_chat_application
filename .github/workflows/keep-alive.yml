@@ -1,0 +1,15 @@
+name: Keep Server Alive
+
+on:
+  schedule:
+    # Runs every 14 minutes to prevent Render from spinning down
+    - cron: "*/14 * * * *"
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping server to keep it awake
+        run: |
+          curl -f https://real-time-fullsatck-chat-application.onrender.com/health || true
