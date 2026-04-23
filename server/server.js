@@ -99,5 +99,16 @@ if(process.env.NODE_ENV !== "production"){
     server.listen(PORT , () => console.log("Server is Running on PORT : "+ PORT));
 }
 
+// Simple health check endpoint - no database queries
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
+
+
+
 // Export server for vercel
 export default server;
