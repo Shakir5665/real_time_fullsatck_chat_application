@@ -5,28 +5,28 @@
   "main": "server.js",
   "type": "module",
   "engines": {
-    "node": "20.18.0"
+    "node": "22.14.0"
   },
   "scripts": {
     "preinstall": "npm cache clean --force",
     "clean": "rm -rf node_modules package-lock.json",
-    "rebuild": "npm install --no-package-lock",
+    "rebuild": "npm install",
     "server": "nodemon server.js",
     "start": "node server.js",
-    "postinstall": "npm list mongodb && npm list mongoose"
+    "postinstall": "npm list mongoose"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.2",
-    "cloudinary": "^1.41.0",
+    "cloudinary": "^2.9.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.3.0",
-    "mongoose": "^8.0.0",
+    "mongodb": "^5.9.0",
+    "mongoose": "^7.7.0",
     "nodemon": "^3.1.10",
     "socket.io": "^4.8.1"
   }
