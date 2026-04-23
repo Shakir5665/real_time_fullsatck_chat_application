@@ -1,27 +1,43 @@
-import Sidebar from '../components/Sidebar'
-import ChatContainer from '../components/ChatContainer'
-import RightSidebar from '../components/RightSidebar'
-import { useContext } from 'react'
-import { ChatContext } from '../../context/ChatContext'
-
+import React, { useContext } from "react";
+import Sidebar from "../components/Sidebar";
+import ChatContainer from "../components/ChatContainer";
+import RightSidebar from "../components/RightSidebar";
+import { ChatContext } from "../../context/ChatContext";
 
 const HomePage = () => {
-
-    const {selectedUser} = useContext(ChatContext);
-
-
+  const { selectedUser } = useContext(ChatContext);
 
   return (
-    <div className="border w-full h-screen min-h-screen p-4  sm:px-[15%] sm:py-[5%] ">
-      <div className = {`backdrop-blur-xl border-2 border-gray-600 rounded-2xl h-[100%] overflow-hidden grid grid-cols-1 relative ${selectedUser ? 'md:grid-cols-[1fr_1.5fr_1fr] xl:grid-cols-[1fr_2fr_1fr]' : 'md:grid-cols-2'}`}>
-        <Sidebar />
-        <ChatContainer />
-        <RightSidebar />
+    <div className="min-h-screen w-full flex flex-col sm:flex-row items-center justify-center sm:px-4 sm:py-8 relative overflow-hidden bg-gradient-to-br from-white to-emerald-50/50">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-emerald-50/30 to-emerald-100/20"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-300/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-green-300/5 rounded-full blur-3xl"></div>
 
+      <div className="relative z-10 w-full sm:max-w-7xl h-screen sm:h-[90vh]">
+        <div className="premium-shadow rounded-none sm:rounded-3xl h-full border border-emerald-200/60 overflow-hidden flex flex-col sm:flex-row bg-white">
+          {/* Sidebar */}
+          <div
+            className={`${selectedUser ? "max-md:hidden" : ""} w-full md:w-80`}
+          >
+            <Sidebar />
+          </div>
+
+          {/* Chat Container */}
+          <div className={`flex-1 ${!selectedUser ? "max-md:hidden" : ""}`}>
+            <ChatContainer />
+          </div>
+
+          {/* Right Sidebar - Profile */}
+          {selectedUser && (
+            <div className="max-md:hidden w-full md:w-72">
+              <RightSidebar />
+            </div>
+          )}
+        </div>
       </div>
-        
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

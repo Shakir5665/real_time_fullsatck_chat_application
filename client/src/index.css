@@ -1,11 +1,212 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Sora:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
 
 @import "tailwindcss";
 
-*{
- font-family: "Outfit", sans-serif;
+* {
+  font-family: "Inter", "Roboto", sans-serif;
+  letter-spacing: 0.3px;
 }
 
-::-webkit-scrollbar{
-    display:none;
+/* Modern Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 20, 25, 0.5);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5FBB75, #4CAF50);
+}
+
+/* Global Styles */
+body {
+  background: linear-gradient(135deg, #0F1419 0%, #1A2E1F 50%, #172D1F 100%);
+  background-attachment: fixed;
+  color: #E8F5E9;
+  overflow-x: hidden;
+}
+
+/* Glass Morphism Effect */
+.glass-effect {
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(31, 77, 43, 0.15);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+/* Light Chat Container */
+.chat-container-light {
+  background: linear-gradient(135deg, #F5FBF9 0%, #F0F9F7 100%);
+  backdrop-filter: blur(10px);
+}
+
+/* Premium Card Shadow */
+.premium-shadow {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.premium-shadow-sm {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Smooth Transitions */
+input, textarea, button, select {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus States */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.4), inset 0 0 10px rgba(76, 175, 80, 0.15);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.4s ease-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.4s ease-out;
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Message animations */
+.message-enter {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+/* Online indicator */
+.online-indicator {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  * {
+    letter-spacing: 0.2px;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(76, 175, 80, 0.15);
+}
+
+/* Message Bubble Animation */
+@keyframes messageScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.message-scale {
+  animation: messageScale 0.3s ease-out;
+}
+
+/* Loading Animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection Styling */
+::selection {
+  background-color: rgba(76, 175, 80, 0.3);
+  color: #1F2E1F;
+}
+
+::-moz-selection {
+  background-color: rgba(76, 175, 80, 0.3);
+  color: #1F2E1F;
 }
