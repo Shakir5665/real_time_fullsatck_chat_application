@@ -95,22 +95,33 @@ export const checkAuth = (req,res) => {
 export const updateProfile = async (req,res) => {
 
     try {
-        const {profilePic , bio , fullName } = req.body;
+        const { profilePic, bio, fullName, currentPassword, newPassword } = req.body;
         const userId = req.user._id;
 
-        let updatedUser;
+        const updateData = { bio, fullName };
 
-        if (!profilePic){
-            updatedUser = await User.findByIdAndUpdate(userId , {bio , fullName}, {new:true});
+        if (newPassword) {
+            if (!currentPassword) {
+                return res.json({ success: false, message: "Current password is required to change password." });
+            }
+            const user = await User.findById(userId);
+            const isPasswordCorrect = await bcrypt.compare(currentPassword, user.password);
+            if (!isPasswordCorrect) {
+                return res.json({ success: false, message: "Current password is incorrect." });
+            }
+            const salt = await bcrypt.genSalt(10);
+            updateData.password = await bcrypt.hash(newPassword, salt);
         }
-        else{
+
+        if (profilePic) {
             const upload = await cloudinary.uploader.upload(profilePic);
-
-            updatedUser = await User.findByIdAndUpdate(userId,{fullName , bio , profilePic:upload.secure_url}, {new:true});
+            updateData.profilePic = upload.secure_url;
         }
+
+        const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true }).select("-password");
 
         res.json({
-            success:true ,
+            success: true,
             user: updatedUser
         });
 
@@ -118,8 +129,8 @@ export const updateProfile = async (req,res) => {
         console.log(error.message);
 
         res.json({
-            success:false,
-            message:error.message
+            success: false,
+            message: error.message
         });
     }
 

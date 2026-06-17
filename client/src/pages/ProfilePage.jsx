@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import toast from "react-hot-toast";
 
 const ProfilePage = () => {
   const { authUser, updateProfile } = useContext(AuthContext);
@@ -8,17 +9,41 @@ const ProfilePage = () => {
   const [selectedImg, setSelectedImg] = useState("");
   const [name, setName] = useState(authUser.fullName);
   const [bio, setBio] = useState(authUser.bio);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (newPassword) {
+      if (newPassword.length < 6) {
+        toast.error("New password must be at least 6 characters long.");
+        return;
+      }
+      if (!currentPassword) {
+        toast.error("Current password is required to change password.");
+        return;
+      }
+    }
+
     setIsLoading(true);
+
+    const updateData = { fullName: name, bio };
+    if (newPassword) {
+      updateData.currentPassword = currentPassword;
+      updateData.newPassword = newPassword;
+    }
+
     if (!selectedImg) {
-      await updateProfile({ fullName: name, bio });
-      navigate("/");
+      const success = await updateProfile(updateData);
       setIsLoading(false);
+      if (success) {
+        navigate("/");
+      }
       return;
     }
 
@@ -26,9 +51,11 @@ const ProfilePage = () => {
     reader.readAsDataURL(selectedImg);
     reader.onload = async () => {
       const base64Image = reader.result;
-      await updateProfile({ profilePic: base64Image, fullName: name, bio });
-      navigate("/");
+      const success = await updateProfile({ ...updateData, profilePic: base64Image });
       setIsLoading(false);
+      if (success) {
+        navigate("/");
+      }
     };
   };
 
@@ -133,6 +160,50 @@ const ProfilePage = () => {
                   className="w-full px-4 py-3 bg-slate-50 border border-emerald-300/60 rounded-xl focus:border-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-300/50 text-slate-800 placeholder-slate-400 group-hover:border-emerald-400/60 transition resize-none"
                   placeholder="Tell us about yourself..."
                 />
+              </div>
+
+              {/* Optional Password Change Accordion */}
+              <div className="border-t border-slate-100 pt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowPasswordFields(!showPasswordFields)}
+                  className="flex items-center justify-between w-full text-left font-semibold text-slate-700 hover:text-emerald-600 transition"
+                >
+                  <span className="flex items-center gap-2">
+                    🔑 Change Password <span className="text-xs font-normal text-slate-500">(optional)</span>
+                  </span>
+                  <span className="text-slate-400">
+                    {showPasswordFields ? "▲" : "▼"}
+                  </span>
+                </button>
+                {showPasswordFields && (
+                  <div className="mt-4 flex flex-col gap-4 animate-[fadeInUp_0.3s_ease-out]">
+                    <div className="group">
+                      <label className="text-xs font-semibold text-slate-700 block mb-2">
+                        Current Password
+                      </label>
+                      <input
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        value={currentPassword}
+                        type="password"
+                        className="w-full px-4 py-3 bg-slate-50 border border-emerald-300/60 rounded-xl focus:border-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-300/50 text-slate-800 placeholder-slate-400 group-hover:border-emerald-400/60 transition"
+                        placeholder="••••••••"
+                      />
+                    </div>
+                    <div className="group">
+                      <label className="text-xs font-semibold text-slate-700 block mb-2">
+                        New Password
+                      </label>
+                      <input
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        value={newPassword}
+                        type="password"
+                        className="w-full px-4 py-3 bg-slate-50 border border-emerald-300/60 rounded-xl focus:border-emerald-500 focus-visible:ring-2 focus-visible:ring-emerald-300/50 text-slate-800 placeholder-slate-400 group-hover:border-emerald-400/60 transition"
+                        placeholder="Min. 6 characters"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="flex gap-4 pt-6">

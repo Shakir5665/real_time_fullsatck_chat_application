@@ -66,9 +66,14 @@ export const AuthProvider = ({ children }) => {
       if (data.success) {
         setAuthUser(data.user);
         toast.success("Profile updated Successfully..");
+        return true;
+      } else {
+        toast.error(data.message || "Failed to update profile.");
+        return false;
       }
     } catch (error) {
       toast.error(error.message);
+      return false;
     }
   };
 
